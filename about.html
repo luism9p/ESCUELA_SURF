@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Meet Jhonny — Tu experto de surf en Lobitos, Perú. Casi 15 años dominando las olas de Lobitos.">
+    <title>Meet Jhonny — Jhonny Surf School, Lobitos</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/LOGO.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+
+<body class="about-page">
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-follower" id="cursor-follower">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- ================================
+         NAVIGATION (same as main)
+         ================================ -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <span class="logo-main">JHONNY SURF SCHOOL</span>
+            </a>
+            <div class="nav-backdrop" id="nav-backdrop"></div>
+            <ul class="nav-menu" id="nav-menu">
+                <button class="nav-close" id="nav-close" aria-label="Close Menu">&times;</button>
+                <li><a href="index.html#about" class="nav-link">Nosotros</a></li>
+                <li><a href="index.html#lessons" class="nav-link">Lecciones</a></li>
+                <li><a href="index.html#retreats" class="nav-link">Retiros</a></li>
+                <li><a href="index.html#rentals" class="nav-link">Alquiler</a></li>
+                <div class="nav-wavy-line">
+                    <svg width="60" height="20" viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 6C5 6 5 1 10 1C15 1 15 11 20 11C25 11 25 1 30 1C35 1 35 6 40 6"
+                            stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+                    </svg>
+                </div>
+                <a href="https://instagram.com/jhonnysurfschool.lobitos" target="_blank" rel="noopener noreferrer"
+                    class="nav-ig-link">@jhonnysurfschool.lobitos</a>
+                <p></p>
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-toggle" id="lang-toggle">
+                    <span class="lang-opt active" data-lang-btn="es">ES</span>
+                    <span class="lang-divider">/</span>
+                    <span class="lang-opt" data-lang-btn="en">EN</span>
+                </div>
+                <button class="nav-reservar magnetic-btn" id="nav-reservar-btn">
+                    <span data-en="BOOK" data-es="RESERVAR">RESERVAR</span>
+                </button>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+                    <span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ================================
+             SECTION 1: HERO — MEET JHONNY
+             ================================ -->
+        <section class="about-hero" id="about-hero">
+            <div class="about-hero-bg">
+
+                <div class="about-hero-overlay"></div>
+            </div>
+
+            <div class="about-hero-content">
+                <div class="about-hero-eyebrow">
+                    <span class="eyebrow-line"></span>
+                    <span class="eyebrow-text" data-en="Lobitos, Peru" data-es="Lobitos, Perú">Lobitos, Perú</span>
+                </div>
+
+                <div class="about-hero-title-wrap">
+                    <h1 class="about-hero-title">Meet Jhonny.</h1>
+                </div>
+
+                <div class="about-hero-subtitle-wrap">
+                    <p class="about-hero-subtitle" data-en="Your Surf Expert in Lobitos."
+                        data-es="Tu experto de surf en Lobitos.">
+                        Tu experto de surf en Lobitos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="hero-scroll-hint">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ================================
+             SECTION 2: BIO & TESTIMONIAL
+             ================================ -->
+        <section class="bio-section" id="bio">
+            <div class="bio-grid">
+
+                <!-- Left: Bio -->
+                <div class="bio-left">
+                    <span class="section-label" data-en="THE INSTRUCTOR" data-es="EL INSTRUCTOR">EL INSTRUCTOR</span>
+                    <h2 class="bio-heading" data-en="A lifetime<br>in the waves." data-es="Una vida<br>entre las olas.">
+                        Una vida<br>entre las olas.</h2>
+                    <p class="bio-text"
+                        data-en="Jhonny is known in Lobitos for being one of the best surf instructors in town, with many locals even turning to Jhonny for lessons. With almost 15 years riding Lobitos' waves, Jhonny teaches surfers of all ages and levels, making every lesson unforgettable."
+                        data-es="Jhonny es reconocido en Lobitos como uno de los mejores instructores de surf del pueblo; muchos locales acuden a él para sus clases. Con casi 15 años montando las olas de Lobitos, Jhonny enseña a surfistas de todas las edades y niveles, haciendo que cada clase sea inolvidable.">
+                        Jhonny es reconocido en Lobitos como uno de los mejores instructores de surf del pueblo; muchos
+                        locales acuden a él para sus clases. Con casi 15 años montando las olas de Lobitos, Jhonny
+                        enseña a surfistas de todas las edades y niveles, haciendo que cada clase sea inolvidable.
+                    </p>
+                    <div class="bio-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">15<span class="stat-suffix">+</span></span>
+                            <span class="stat-label" data-en="Years in<br>the water" data-es="Años en<br>el agua">Años
+                                en<br>el agua</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label" data-en="Students<br>taught"
+                                data-es="Estudiantes<br>formados">Estudiantes<br>formados</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label" data-en="Skill<br>levels" data-es="Niveles de<br>habilidad">Niveles
+                                de<br>habilidad</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Testimonial Card -->
+                <div class="bio-right">
+                    <div class="testimonial-card glass-card">
+                        <div class="card-accent"></div>
+                        <div class="testimonial-quote-mark">"</div>
+                        <blockquote class="testimonial-text">
+                            Johnny is just the best. Not just for your surfing skills but also for your mental skills
+                            and helps you to lose the fear of big waves and trust on your skills. Could not recommend
+                            him more!
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-dot"></div>
+                            <span class="author-name">Kai P.</span>
+                        </div>
+                    </div>
+
+                    <!-- Second card, slightly offset -->
+                    <div class="bio-image-card">
+                        <img src="images/instructor-2.png" alt="Jhonny teaching on the beach" class="bio-img">
+                        <div class="bio-img-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================
+             SECTION 3: OUR SPOT — PARALLAX
+             ================================ -->
+        <section class="spot-section" id="spot">
+            <div class="spot-bg">
+                <img src="images/lineup-sunset.jpeg" alt="Lobitos beach surf spot" class="spot-img">
+                <div class="spot-overlay"></div>
+            </div>
+
+            <div class="spot-grid-container">
+                <!-- Left Column: Text & Details -->
+                <div class="spot-left">
+                    <span class="section-label" data-en="THE LOCATION" data-es="LA UBICACIÓN">LA UBICACIÓN</span>
+                    <h2 class="spot-heading" data-en="Our Spot." data-es="Nuestro Spot.">Nuestro Spot.</h2>
+                    <p class="spot-sub"
+                        data-en="Nestled right on Lobitos beach, where the waves are perfect for every surfer's level."
+                        data-es="Ubicados directamente en la playa de Lobitos, donde las olas son perfectas para cada nivel de surfista.">
+                        Ubicados directamente en la playa de Lobitos, donde las olas son perfectas para cada nivel de
+                        surfista.
+                    </p>
+
+                    <div class="spot-details">
+                        <div class="spot-detail">
+                            <span class="spot-detail-label" data-en="ADDRESS" data-es="UBICACIÓN">UBICACIÓN</span>
+                            <span class="spot-detail-value">Lobitos Beach, Peru</span>
+                        </div>
+                        <div class="spot-detail-divider"></div>
+                        <div class="spot-detail">
+                            <span class="spot-detail-label" data-en="HOURS" data-es="HORARIO">HORARIO</span>
+                            <span class="spot-detail-value">6:30 AM – 6:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Google Maps -->
+                <div class="spot-right">
+                    <div class="map-wrapper">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.7680200603054!2d-81.2878429!3d-4.454196499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90365ba094d8f551%3A0x66f44c20a982248f!2sJhonny&#39;s%20Surf%20School!5e0!3m2!1ses!2spe!4v1774028223325!5m2!1ses!2spe"
+                            class="spot-map" title="Lobitos Beach — Jhonny Surf School" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <div class="map-caption">
+                            <span class="map-pin">📍</span>
+                            <span>Lobitos, Talara — Piura, Perú</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================================
+             SECTION 4: LARGE QUOTE — IMPACT
+             ================================ -->
+        <section class="impact-section" id="impact">
+            <div class="impact-overlay"></div>
+            <div class="impact-container">
+                <span class="section-label" data-en="WHAT PEOPLE SAY" data-es="LO QUE DICEN">LO QUE DICEN</span>
+
+                <div class="impact-quote-wrap">
+                    <div class="impact-quote-number">02</div>
+                    <blockquote class="impact-quote">
+                        <p class="impact-quote-text"
+                            data-en="I enjoyed surf classes with Jhonny and was super happy and felt safe all the time! He showed me a lot, where to pick up waves, how to read waves and I learned so much more than in a surf class... He is working in a social project with kids as well and I appreciate his engagement! Thank you for the experience."
+                            data-es="¡Disfruté mucho las clases de surf con Jhonny, fui súper feliz y me sentí segura todo el tiempo! Me enseñó un montón: dónde agarrar las olas, cómo leerlas, y aprendí mucho más que en otras clases... Además, él trabaja en un proyecto social con niños y valoro mucho su compromiso. ¡Gracias por la experiencia!">
+                            "¡Disfruté mucho las clases de surf con Jhonny, fui súper feliz y me sentí segura todo el
+                            tiempo! Me enseñó un montón: dónde agarrar las olas, cómo leerlas, y aprendí mucho más que
+                            en otras clases... Además, él trabaja en un proyecto social con niños y valoro mucho su
+                            compromiso. ¡Gracias por la experiencia!"
+                        </p>
+                        <footer class="impact-quote-footer">
+                            <span class="impact-author">— VERONIKA</span>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================
+         FOOTER — SAME AS MAIN PAGE
+         ================================ -->
+    <footer class="footer" id="footer">
+        <div class="marquee-container" aria-hidden="true">
+            <div class="marquee-track">
+                <span class="marquee-text">BOOK YOUR WAVE</span>
+                <span class="marquee-divider">—</span>
+                <span class="marquee-text">JHONNY SURF SCHOOL</span>
+                <span class="marquee-divider">—</span>
+                <span class="marquee-text">BOOK YOUR WAVE</span>
+                <span class="marquee-divider">—</span>
+                <span class="marquee-text">JHONNY SURF SCHOOL</span>
+                <span class="marquee-divider">—</span>
+                <span class="marquee-text">BOOK YOUR WAVE</span>
+                <span class="marquee-divider">—</span>
+                <span class="marquee-text">JHONNY SURF SCHOOL</span>
+                <span class="marquee-divider">—</span>
+            </div>
+        </div>
+
+        <div class="footer-cta">
+            <button class="cta-circle magnetic-btn" id="cta-circle-btn">
+                <span data-en="BOOK" data-es="RESERVAR">RESERVAR</span>
+            </button>
+        </div>
+
+        <div class="footer-info">
+            <div class="footer-col">
+                <span class="footer-label">Ubicación</span>
+                <p>Playa de Lobitos, Talara<br>Piura, Perú</p>
+            </div>
+            <div class="footer-col">
+                <span class="footer-label">Contacto</span>
+                <p>+51 978 693 003<br>jhonnysurfschool.com</p>
+            </div>
+            <div class="footer-col">
+                <span class="footer-label">Social</span>
+                <div class="social-links">
+                    <a
+                        href="https://www.instagram.com/jhonnysurfschool.lobitos?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">IG</a><a
+                        href="#">FB</a><a href="#">TK</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 Jhonny Surf School. Lobitos, Perú.</span>
+        </div>
+    </footer>
+
+    <!-- ================================
+         BOOKING OVERLAY — SAME AS MAIN
+         ================================ -->
+    <div class="booking-overlay" id="booking-overlay">
+        <div class="booking-backdrop"></div>
+        <button class="booking-close magnetic-btn" id="booking-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="booking-progress">
+            <div class="progress-text">
+                <span class="progress-step">Paso <span id="current-step">1</span> de 3</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        <div class="booking-content">
+            <div class="booking-steps" id="booking-steps">
+                <div class="booking-step active" data-step="1">
+                    <h2 class="step-title">
+                        <span class="title-line">Elige tu nivel</span>
+                        <span class="title-line title-alt">Choose your path</span>
+                    </h2>
+                    <div class="experience-strips">
+                        <div class="experience-strip" data-level="principiante" data-price="120">
+                            <div class="strip-bg"><img src="images/wave-punta.png" alt="Principiante"></div>
+                            <div class="strip-content">
+                                <span class="strip-number">01</span>
+                                <h3 class="strip-title">Principiante</h3>
+                                <p class="strip-desc">Tus primeras espumas</p>
+                                <span class="strip-price">S/. 120</span>
+                            </div>
+                        </div>
+                        <div class="experience-strip" data-level="intermedio" data-price="350">
+                            <div class="strip-bg"><img src="images/piscinas.png" alt="Intermedio"></div>
+                            <div class="strip-content">
+                                <span class="strip-number">02</span>
+                                <h3 class="strip-title">Intermedio</h3>
+                                <p class="strip-desc">Olas verdes y maniobras</p>
+                                <span class="strip-price">S/. 350</span>
+                            </div>
+                        </div>
+                        <div class="experience-strip" data-level="avanzado" data-price="800">
+                            <div class="strip-bg"><img src="images/wave-barrel.png" alt="Avanzado"></div>
+                            <div class="strip-content">
+                                <span class="strip-number">03</span>
+                                <h3 class="strip-title">Avanzado</h3>
+                                <p class="strip-desc">Tubos y competición</p>
+                                <span class="strip-price">S/. 800</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="booking-step" data-step="2">
+                    <h2 class="step-title"><span class="title-line">Selecciona fecha</span></h2>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="calendar-nav prev" id="cal-prev">←</button>
+                            <span class="calendar-month" id="calendar-month">Marzo 2026</span>
+                            <button class="calendar-nav next" id="cal-next">→</button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span>Lu</span><span>Ma</span><span>Mi</span>
+                            <span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span>
+                        </div>
+                        <div class="calendar-days" id="calendar-days"></div>
+                    </div>
+                    <div class="time-slots">
+                        <span class="time-label">Horarios disponibles</span>
+                        <div class="time-options">
+                            <button class="time-slot" data-time="08:00">08:00 AM</button>
+                            <button class="time-slot" data-time="10:30">10:30 AM</button>
+                            <button class="time-slot" data-time="14:00">02:00 PM</button>
+                            <button class="time-slot" data-time="16:30">04:30 PM</button>
+                        </div>
+                    </div>
+                    <button class="step-nav-btn" id="to-step-3" disabled>Continuar</button>
+                </div>
+                <div class="booking-step" data-step="3">
+                    <h2 class="step-title"><span class="title-line">Tus datos</span></h2>
+                    <form class="booking-form" id="booking-form">
+                        <div class="form-field">
+                            <input type="text" id="booking-name" placeholder="Nombre completo" required>
+                            <span class="field-line"></span>
+                        </div>
+                        <div class="form-field phone-field">
+                            <span class="phone-prefix">+51</span>
+                            <input type="tel" id="booking-phone" placeholder="999 999 999" pattern="[0-9]{9}" required>
+                            <span class="field-line"></span>
+                        </div>
+                        <div class="booking-summary">
+                            <div class="summary-row">
+                                <span class="summary-label">Nivel</span>
+                                <span class="summary-value" id="summary-level">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Fecha</span>
+                                <span class="summary-value" id="summary-date">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Hora</span>
+                                <span class="summary-value" id="summary-time">—</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="confirm-btn magnetic-btn" id="confirm-btn"
+                            style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span>CONFIRMAR</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                                <path
+                                    d="M12.001 2.002c-5.514 0-9.998 4.484-9.998 9.999 0 1.748.455 3.447 1.32 4.945L1.936 21.93l5.127-1.344a9.962 9.962 0 004.938 1.312h.004c5.513 0 9.997-4.484 9.997-9.999 0-5.515-4.484-9.997-9.997-9.997zm0 18.257h-.003c-1.478 0-2.923-.396-4.185-1.146l-.3-.178-3.111.816.832-3.033-.195-.311a8.136 8.136 0 01-1.244-4.306c0-4.492 3.655-8.147 8.148-8.147 4.492 0 8.146 3.655 8.146 8.148 0 4.492-3.654 8.147-8.147 8.147z" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="booking-success" id="booking-success">
+            <div class="success-content">
+                <div class="success-check">
+                    <svg viewBox="0 0 52 52">
+                        <circle class="check-circle" cx="26" cy="26" r="25" fill="none" />
+                        <path class="check-mark" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+                <h2 class="success-title">¡Reserva confirmada!</h2>
+                <p class="success-message">Nos vemos en el agua 🏄‍♂️</p>
+                <p class="success-info">Te enviaremos los detalles por WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="about.js"></script>
+</body>
+
+</html>
