@@ -52,6 +52,8 @@
                 <button class="nav-close" id="nav-close" aria-label="Close Menu">&times;</button>
                 <li><a href="#about" class="nav-link" data-en="About" data-es="Nosotros">Nosotros</a></li>
                 <li><a href="#lessons" class="nav-link" data-en="Lessons" data-es="Lecciones">Lecciones</a></li>
+                <li><a href="#mareas" class="nav-link" data-en="Tide Chart" data-es="Tabla de Mareas">Tabla de
+                        Mareas</a></li>
                 <li><a href="#retreats" class="nav-link" data-en="Retreats" data-es="Retiros">Retiros</a></li>
                 <li><a href="#rentals" class="nav-link" data-en="Rentals" data-es="Alquiler">Alquiler</a></li>
                 <div class="nav-wavy-line">
@@ -116,6 +118,17 @@
             <div class="hero-scroll-hint">
                 <span data-en="Scroll" data-es="Scroll">Scroll</span>
                 <div class="scroll-line"></div>
+            </div>
+
+            <!-- Surf Status Widget -->
+            <div class="surf-widget" id="surf-widget">
+                <div class="surf-widget-inner">
+                    <span class="surf-widget-loading" id="surf-loading">Cargando reporte marino...</span>
+                    <div class="surf-widget-content" id="surf-content" style="display: none;">
+                        <span class="surf-status" id="surf-status">--</span>
+                        <span class="surf-data" id="surf-data">--</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -306,6 +319,68 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+
+        <!-- ================================
+             TABLA DE MAREAS (TIDE CHART)
+             ================================ -->
+        <section id="mareas" class="tide-section">
+            <div class="tide-container">
+                <header class="tide-header" style="text-align: center; width: 100%;">
+                    <h2 class="lessons-title" data-en="Surf Conditions" data-es="Condiciones Actuales">
+                        Condiciones Actuales
+                    </h2>
+                </header>
+
+                <div class="surf-condition-banner">
+                    <span class="scb-subtitle" data-en="Lobitos Sea Condition" data-es="Estado del Mar en Lobitos">Estado del Mar en Lobitos</span>
+                    <span id="api-surf-rating" class="api-surf-rating">Calculando...</span>
+                </div>
+
+                <div class="surf-dashboard-grid">
+                    <!-- CARD 1: SURF HEIGHT -->
+                    <div class="surf-dashboard-card">
+                        <span class="sdc-title">TAMAÑO DE OLAS</span>
+                        <div class="sdc-main" id="api-surf-height">0.9 - 1.4m</div>
+                        <div class="sdc-sub" id="api-surf-sub">Por la cintura/hombro</div>
+                    </div>
+
+                    <!-- CARD 2: SWELL -->
+                    <div class="surf-dashboard-card">
+                        <span class="sdc-title">OLEAJE</span>
+                        <div class="sdc-main" id="api-swell-primary"
+                            style="display: flex; gap: 8px; align-items: center;">
+                            <span>1.1m</span> <span style="opacity: 0.5;">|</span> <span>11s</span> <span
+                                style="opacity: 0.5;">|</span> <span style="font-size: 1rem;">SO 190°</span>
+                        </div>
+                        <div class="sdc-sub" style="display: flex; gap: 8px; align-items: center;">
+                            <span>0.2m</span> <span style="opacity: 0.5;">|</span> <span>12s</span> <span
+                                style="opacity: 0.5;">|</span> <span>NO 319°</span>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: WIND -->
+                    <div class="surf-dashboard-card">
+                        <span class="sdc-title">VIENTO</span>
+                        <div class="sdc-main" id="api-wind">22 kph SO</div>
+                        <div class="sdc-sub">Ráfagas 25kph, Onshore</div>
+                    </div>
+
+                    <!-- CARD 5: TEMPERATURE -->
+                    <div class="surf-dashboard-card">
+                        <span class="sdc-title">TEMPERATURA</span>
+                        <div class="sdc-main" style="font-size: 1.2rem; display: flex; align-items: center; flex-wrap: wrap; gap: 4px;">
+                            <svg style="width: 20px; height: 20px; color: rgba(147, 197, 253, 0.7); display: inline-block; margin-top: -2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2.25c-5.385 7.42-7.5 10.96-7.5 13.5a7.5 7.5 0 0015 0c0-2.54-2.115-6.08-7.5-13.5z"></path></svg>
+                            <span id="api-temp-water">22°C</span> <span style="font-size: 0.8rem; margin-right: 4px;">(Agua)</span>
+                            <span style="opacity:0.3; margin:0 4px;">|</span> 
+                            <svg style="width: 20px; height: 20px; color: rgba(234, 179, 8, 0.7); display: inline-block; margin-top: -2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-2.727l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path></svg>
+                            <span id="api-temp-air">25°C</span> <span style="font-size: 0.8rem;">(Aire)</span>
+                        </div>
+                        <div class="sdc-sub">Wetsuit recomendado: 3/2mm</div>
+                    </div>
+                </div>
             </div>
         </section>
 

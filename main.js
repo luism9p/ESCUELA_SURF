@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticButtons();
     initMobileNav();
     initLanguageToggle();
+    initSurfWidget();
+    updateSurfConditions();
     BookingFlow.init();
 
     console.log('🌊 Jhonny Surf School — Initialized');
@@ -351,6 +353,147 @@ function initLanguageToggle() {
         document.querySelectorAll('[data-lang-btn]').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.langBtn === lang);
         });
+    }
+}
+
+/* -------------------- 
+   Surf Widget API
+   -------------------- */
+async function initSurfWidget() {
+    const loadingEl = document.getElementById('surf-loading');
+    const contentEl = document.getElementById('surf-content');
+    const statusEl = document.getElementById('surf-status');
+    const dataEl = document.getElementById('surf-data');
+
+    if (!loadingEl || !contentEl || !statusEl || !dataEl) return;
+
+    try {
+        const response = await fetch('https://marine-api.open-meteo.com/v1/marine?latitude=-4.45&longitude=-81.28&current=wave_height,wave_period,wave_direction&timezone=auto');
+        if (!response.ok) throw new Error('API Error');
+        const data = await response.json();
+
+        if (data && data.current) {
+            const height = data.current.wave_height;
+            const period = data.current.wave_period;
+            
+            let statusText = "SIN DATOS";
+            let icon = "⚪";
+
+            if (height < 1.2) {
+                statusText = "PERFECTO PARA APRENDER";
+                icon = "🟢";
+            } else if (height >= 1.2 && height < 1.9) {
+                statusText = "DIVERTIDO / INTERMEDIO";
+                icon = "🟡";
+            } else if (height >= 1.9) {
+                statusText = "SOLO EXPERTOS";
+                icon = "🔴";
+            }
+
+            statusEl.innerHTML = `<span>${icon}</span> <span>${statusText}</span>`;
+            dataEl.textContent = `Altura: ${height}m | Periodo: ${period}s`;
+
+            loadingEl.style.display = 'none';
+            contentEl.style.display = 'block';
+        } else {
+            loadingEl.textContent = 'Reporte no disponible';
+        }
+    } catch (e) {
+        console.error("Error fetching surf widget data:", e);
+        if(loadingEl) loadingEl.textContent = 'Error al cargar reporte';
+    }
+}
+
+/* -------------------- 
+   Dashboard Surf Conditions
+   -------------------- */
+async function updateSurfConditions() {
+    const elHeight = document.getElementById('api-surf-height');
+    const elSubHeight = document.getElementById('api-surf-sub');
+    const elSwell = document.getElementById('api-swell-primary');
+    const elWind = document.getElementById('api-wind');
+    const elWater = document.getElementById('api-temp-water');
+    const elAir = document.getElementById('api-temp-air');
+
+    // Return if not on dashboard page
+    if (!elHeight) return;
+
+    // Helper: degree to compass Rose direction
+    const getCompassDir = (deg) => {
+        const val = Math.floor((deg / 22.5) + 0.5);
+        const arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+        return arr[(val % 16)];
+    };
+
+    try {
+        // Fetch Marine Data (Waves)
+        const marineRes = await fetch('https://marine-api.open-meteo.com/v1/marine?latitude=-4.45&longitude=-81.28&current=wave_height,wave_period,wave_direction');
+        if (marineRes.ok) {
+            const marineData = await marineRes.json();
+            if (marineData && marineData.current) {
+                const wh = marineData.current.wave_height;
+                const wp = marineData.current.wave_period;
+                const wd = marineData.current.wave_direction;
+
+                // Card 1: Height
+                const minH = Math.max(0, (wh - 0.2)).toFixed(1);
+                const maxH = (wh + 0.2).toFixed(1);
+                elHeight.textContent = `${minH} - ${maxH}m`;
+
+                // Give it a human-readable subtext based on height
+                let humanSub = "Plano o muy pequeño";
+                if (wh > 0.6 && wh < 1.2) humanSub = "Por la rodilla/cintura";
+                if (wh >= 1.2 && wh < 1.8) humanSub = "Por la cintura/pecho";
+                if (wh >= 1.8 && wh < 2.5) humanSub = "Overhead (Por encima de la cabeza)";
+                if (wh >= 2.5) humanSub = "Doble Overhead+";
+                elSubHeight.textContent = humanSub;
+
+                // Dynamic Rating Banner
+                const ratingEl = document.getElementById('api-surf-rating');
+                if (ratingEl) {
+                    if (wh < 1.2) {
+                        ratingEl.textContent = "🟢 PERFECTO PARA APRENDER";
+                        ratingEl.className = "api-surf-rating status-green";
+                    } else if (wh >= 1.2 && wh < 1.9) {
+                        ratingEl.textContent = "🟡 DIVERSIÓN / INTERMEDIO";
+                        ratingEl.className = "api-surf-rating status-yellow";
+                    } else {
+                        ratingEl.textContent = "🔴 SOLO EXPERTOS";
+                        ratingEl.className = "api-surf-rating status-red";
+                    }
+                }
+
+                // Card 2: Swell
+                const dirStr = getCompassDir(wd);
+                const arrowSvg = `<svg style="width: 16px; height: 16px; color: #9ca3af; display: inline-block; margin-right: 4px; transform: rotate(${Math.round(wd)}deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>`;
+                elSwell.innerHTML = `<span>${wh}m</span> <span style="opacity: 0.5;">|</span> <span>${wp}s</span> <span style="opacity: 0.5;">|</span> <span style="font-size: 1rem; display: flex; align-items: center;">${arrowSvg} ${dirStr} ${Math.round(wd)}°</span>`;
+            }
+        }
+
+        // Fetch Weather Data (Wind & Temp)
+        const weatherRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-4.45&longitude=-81.28&current=temperature_2m,wind_speed_10m,wind_direction_10m');
+        if (weatherRes.ok) {
+            const weatherData = await weatherRes.json();
+            if (weatherData && weatherData.current) {
+                const ws = weatherData.current.wind_speed_10m;
+                const wdir = weatherData.current.wind_direction_10m;
+                const temp = weatherData.current.temperature_2m;
+
+                // Card 3: Wind
+                const wDirStr = getCompassDir(wdir);
+                const wArrowSvg = `<svg style="width: 16px; height: 16px; color: #9ca3af; display: inline-block; margin-right: 4px; transform: rotate(${Math.round(wdir)}deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>`;
+                elWind.innerHTML = `<div style="display: flex; align-items: center;">${wArrowSvg} ${Math.round(ws)} kph ${wDirStr}</div>`;
+
+                // Card 5: Temperature
+                const tAir = Math.round(temp);
+                const tWater = Math.max(16, tAir - 2); // Roughly air - 2 degrees, minimum ~16C for Peru
+                elAir.textContent = `${tAir}°C`;
+                elWater.textContent = `${tWater}°C`;
+            }
+        }
+
+    } catch (e) {
+        console.error("Error fetching Dashboard data:", e);
     }
 }
 

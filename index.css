@@ -383,7 +383,7 @@ button {
         height: 100dvh;
         transform: translateX(-100%);
         transition: transform 0.4s var(--ease-out);
-        border-right: 1px solid rgba(255,255,255,0.05);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .nav-menu.open {
@@ -1973,8 +1973,16 @@ button {
     letter-spacing: -0.02em;
     line-height: 1.2;
     color: var(--text-primary);
-    margin-top: var(--space-4);
     max-width: 680px;
+
+    /* --- MODIFICACIONES PARA CENTRADO PERFECTO --- */
+    margin-top: var(--space-4);
+    margin-left: auto;
+    /* Empuja la caja desde la izquierda */
+    margin-right: auto;
+    /* Empuja la caja desde la derecha */
+    text-align: center;
+    /* Centra las palabras dentro de la caja */
 }
 
 /* Services 2-col */
@@ -2193,6 +2201,70 @@ button {
 }
 
 /* ==========================================
+   SURF WIDGET (OPEN-METEO API)
+   ========================================== */
+.surf-widget {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10;
+    max-width: 300px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.surf-widget-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.surf-widget-loading {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.surf-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.surf-data {
+    font-size: var(--text-xs);
+    color: #9ca3af;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+    .surf-widget {
+        bottom: 5rem;
+        right: 1.5rem;
+        left: 1.5rem;
+        text-align: center;
+        max-width: none;
+    }
+
+    .surf-status {
+        justify-content: center;
+    }
+}
+
+/* ==========================================
    MOBILE UX FIXES
    ========================================== */
 @media (max-width: 1024px) {
@@ -2218,4 +2290,139 @@ button {
     .portrait-img {
         object-position: 85% center !important;
     }
+}
+
+/* ==========================================
+   TIDE SECTION
+   ========================================== */
+.tide-section {
+    padding: var(--space-24) 5%;
+    background: #0a0a0a;
+    color: var(--text-primary);
+}
+
+.tide-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tide-header {
+    margin-bottom: var(--space-8);
+}
+
+.surf-condition-banner {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .surf-condition-banner {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.scb-subtitle {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+@media (min-width: 768px) {
+    .scb-subtitle {
+        margin-bottom: 0;
+    }
+}
+
+.api-surf-rating {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .api-surf-rating {
+        font-size: 1.5rem;
+    }
+}
+
+.status-green {
+    color: #4ade80 !important;
+}
+
+.status-yellow {
+    color: #facc15 !important;
+}
+
+.status-red {
+    color: #ef4444 !important;
+}
+
+.surf-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .surf-dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .surf-dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.surf-dashboard-card {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s ease;
+    min-height: 140px;
+}
+
+.surf-dashboard-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.sdc-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.sdc-main {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.sdc-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 300;
 }
