@@ -120,14 +120,21 @@
                 <div class="scroll-line"></div>
             </div>
 
-            <!-- Surf Status Widget -->
-            <div class="surf-widget" id="surf-widget">
-                <div class="surf-widget-inner">
-                    <span class="surf-widget-loading" id="surf-loading">Cargando reporte marino...</span>
-                    <div class="surf-widget-content" id="surf-content" style="display: none;">
-                        <span class="surf-status" id="surf-status">--</span>
-                        <span class="surf-data" id="surf-data">--</span>
-                    </div>
+            <!-- Surf Status Bar -->
+            <style>
+                @media (max-width: 768px) {
+                    .hide-on-mobile { display: none !important; }
+                }
+            </style>
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 0; display: flex; justify-content: center; align-items: center; z-index: 10; text-align: center;">
+                <div style="font-size: var(--text-xs); letter-spacing: 0.15em; color: rgba(255, 255, 255, 0.8); font-weight: 300; text-transform: uppercase; display: flex; align-items: center;">
+                    <span id="surf-status" style="display: flex; gap: 8px;">
+                        <span>🟢</span> <span>PERFECTO PARA APRENDER</span>
+                    </span>
+                    <span class="hide-on-mobile" style="display: flex; align-items: center;">
+                        <span style="margin: 0 8px;">•</span> 
+                        <span id="surf-data">ALTURA: 1.14M | PERIODO: 11.5S</span>
+                    </span>
                 </div>
             </div>
         </section>
@@ -142,19 +149,41 @@
             </div>
 
             <div class="about-content">
-                <span class="section-label" data-en="THE LOCAL LEGEND" data-es="LA LEYENDA LOCAL">LA LEYENDA
-                    LOCAL</span>
+                <span class="section-label" data-en="OUR ESSENCE" data-es="NUESTRA ESENCIA">NUESTRA ESENCIA</span>
                 <p class="about-text">
-                    <span class="text-line"><span class="text-mask" data-en="We are not just a school."
-                            data-es="No somos solo una escuela.">No somos solo una escuela.</span></span>
-                    <span class="text-line"><span class="text-mask" data-en="We are Lobitos locals."
-                            data-es="Somos locales de Lobitos.">Somos locales de Lobitos.</span></span>
-                    <span class="text-line"><span class="text-mask" data-en="Born in the waves,"
-                            data-es="Nacidos entre las olas,">Nacidos entre las olas,</span></span>
-                    <span class="text-line"><span class="text-mask" data-en="raised by the ocean."
-                            data-es="criados por el océano.">criados por el océano.</span></span>
+                    <span class="text-line"><span class="text-mask" data-en="We share our home,"
+                            data-es="Compartimos nuestra casa,">Compartimos nuestra casa,</span></span>
+                    <span class="text-line"><span class="text-mask" data-en="our waves and our passion."
+                            data-es="nuestras olas y nuestra pasión.">nuestras olas y nuestra pasión.</span></span>
+                    <span class="text-line"><span class="text-mask" data-en="Learn to surf with the respect"
+                            data-es="Aprende a surfear con el respeto">Aprende a surfear con el respeto</span></span>
+                    <span class="text-line"><span class="text-mask" data-en="and warmth of the Lobitos community."
+                            data-es="y la calidez de la comunidad de Lobitos.">y la calidez de la comunidad de Lobitos.</span></span>
                 </p>
-                <a href="about.html" class="about-story-link" data-en="Discover our story →"
+                <style>
+                    .about-story-btn {
+                        display: inline-block;
+                        margin-top: 2rem;
+                        padding: 0.75rem 2rem;
+                        border: 1px solid rgba(255, 255, 255, 0.6);
+                        border-radius: 9999px;
+                        font-size: var(--text-xs);
+                        text-transform: uppercase;
+                        letter-spacing: 0.1em;
+                        color: #ffffff;
+                        transition: all 0.3s ease;
+                    }
+                    @media (min-width: 768px) {
+                        .about-story-btn {
+                            font-size: var(--text-sm);
+                        }
+                    }
+                    .about-story-btn:hover {
+                        background-color: #ffffff;
+                        color: #000000;
+                    }
+                </style>
+                <a href="about.html" class="about-story-btn" data-en="Discover our story →"
                     data-es="Conoce nuestra historia →">Conoce nuestra historia →</a>
             </div>
         </section>
@@ -335,7 +364,8 @@
                 </header>
 
                 <div class="surf-condition-banner">
-                    <span class="scb-subtitle" data-en="Lobitos Sea Condition" data-es="Estado del Mar en Lobitos">Estado del Mar en Lobitos</span>
+                    <span class="scb-subtitle" data-en="Lobitos Sea Condition"
+                        data-es="Estado del Mar en Lobitos">Estado del Mar en Lobitos</span>
                     <span id="api-surf-rating" class="api-surf-rating">Calculando...</span>
                 </div>
 
@@ -371,11 +401,25 @@
                     <!-- CARD 5: TEMPERATURE -->
                     <div class="surf-dashboard-card">
                         <span class="sdc-title">TEMPERATURA</span>
-                        <div class="sdc-main" style="font-size: 1.2rem; display: flex; align-items: center; flex-wrap: wrap; gap: 4px;">
-                            <svg style="width: 20px; height: 20px; color: rgba(147, 197, 253, 0.7); display: inline-block; margin-top: -2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2.25c-5.385 7.42-7.5 10.96-7.5 13.5a7.5 7.5 0 0015 0c0-2.54-2.115-6.08-7.5-13.5z"></path></svg>
-                            <span id="api-temp-water">22°C</span> <span style="font-size: 0.8rem; margin-right: 4px;">(Agua)</span>
-                            <span style="opacity:0.3; margin:0 4px;">|</span> 
-                            <svg style="width: 20px; height: 20px; color: rgba(234, 179, 8, 0.7); display: inline-block; margin-top: -2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-2.727l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path></svg>
+                        <div class="sdc-main"
+                            style="font-size: 1.2rem; display: flex; align-items: center; flex-wrap: wrap; gap: 4px;">
+                            <svg style="width: 20px; height: 20px; color: rgba(147, 197, 253, 0.7); display: inline-block; margin-top: -2px;"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 2.25c-5.385 7.42-7.5 10.96-7.5 13.5a7.5 7.5 0 0015 0c0-2.54-2.115-6.08-7.5-13.5z">
+                                </path>
+                            </svg>
+                            <span id="api-temp-water">22°C</span> <span
+                                style="font-size: 0.8rem; margin-right: 4px;">(Agua)</span>
+                            <span style="opacity:0.3; margin:0 4px;">|</span>
+                            <svg style="width: 20px; height: 20px; color: rgba(234, 179, 8, 0.7); display: inline-block; margin-top: -2px;"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-2.727l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z">
+                                </path>
+                            </svg>
                             <span id="api-temp-air">25°C</span> <span style="font-size: 0.8rem;">(Aire)</span>
                         </div>
                         <div class="sdc-sub">Wetsuit recomendado: 3/2mm</div>
@@ -527,6 +571,203 @@
                     disponibles. Consulta a tu instructor.</p>
             </div>
         </section>
+
+        <!-- ================================
+             SECTION 3: OUR SPOT — PARALLAX
+             ================================ -->
+        <style>
+            /* Copied from about.css for modular inclusion */
+            .spot-section {
+                position: relative;
+                min-height: 80vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+            .spot-bg {
+                position: absolute;
+                inset: 0;
+            }
+            .spot-img {
+                width: 100%;
+                height: 120%;
+                object-fit: cover;
+                object-position: center;
+                will-change: transform;
+            }
+            .spot-overlay {
+                position: absolute;
+                inset: 0;
+                /* Added top gradient for smooth transition from the dark rentals background */
+                background: linear-gradient(to bottom, #111118 0%, rgba(9, 9, 14, 0.65) 15%, rgba(9, 9, 14, 0.65) 100%);
+            }
+            .spot-grid-container {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                max-width: 1300px;
+                margin: 0 auto;
+                padding: clamp(4rem, 10vw, 8rem) var(--container-padding);
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(2.5rem, 6vw, 6rem);
+                align-items: center;
+                border-radius: 20px;
+                backdrop-filter: blur(2px);
+                -webkit-backdrop-filter: blur(2px);
+            }
+            @media (max-width: 900px) {
+                .spot-grid-container {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .spot-left {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+            .spot-heading {
+                font-family: var(--font-serif, 'Cormorant Garamond', serif);
+                font-size: clamp(3rem, 8vw, 7rem);
+                font-weight: 300;
+                letter-spacing: -0.03em;
+                line-height: 0.95;
+                color: var(--text-primary);
+                margin: var(--space-4) 0 var(--space-6);
+                text-align: left;
+            }
+            .spot-sub {
+                font-size: var(--text-base);
+                font-weight: 300;
+                line-height: 1.8;
+                color: var(--text-secondary);
+                max-width: 420px;
+                margin: 0 0 var(--space-10);
+                text-align: left;
+            }
+            .spot-details {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-5);
+                padding-top: var(--space-6);
+                border-top: 1px solid var(--border);
+            }
+            .spot-detail {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-1);
+                text-align: left;
+            }
+            .spot-detail-label {
+                font-size: var(--text-xs);
+                font-weight: 500;
+                letter-spacing: 0.28em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+            }
+            .spot-detail-value {
+                font-size: var(--text-lg);
+                font-weight: 300;
+                color: var(--text-primary);
+                letter-spacing: 0.02em;
+            }
+            .spot-detail-divider {
+                width: 40px;
+                height: 1px;
+                background: var(--border);
+                opacity: 0.5;
+            }
+            .spot-right {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .map-wrapper {
+                position: relative;
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+            }
+            .spot-map {
+                display: block;
+                width: 100%;
+                height: 420px;
+                border: none;
+                filter: grayscale(85%) contrast(1.15) brightness(0.75);
+                transition: filter 0.55s ease, opacity 0.55s ease;
+                opacity: 0.85;
+            }
+            .map-wrapper:hover .spot-map {
+                filter: grayscale(0%) contrast(1) brightness(0.95);
+                opacity: 1;
+            }
+            .map-caption {
+                display: flex;
+                align-items: center;
+                gap: var(--space-2);
+                padding: var(--space-3) var(--space-4);
+                background: rgba(9, 9, 14, 0.88);
+                border-top: 1px solid rgba(255, 255, 255, 0.06);
+                font-size: var(--text-xs);
+                font-weight: 400;
+                letter-spacing: 0.1em;
+                color: var(--text-muted);
+                text-transform: uppercase;
+            }
+            .map-pin {
+                font-size: 0.95rem;
+                filter: grayscale(1);
+            }
+        </style>
+        <section class="spot-section" id="spot">
+            <div class="spot-bg">
+                <img src="images/lineup-sunset.jpeg" alt="Lobitos beach surf spot" class="spot-img">
+                <div class="spot-overlay"></div>
+            </div>
+
+            <div class="spot-grid-container">
+                <!-- Left Column: Text & Details -->
+                <div class="spot-left">
+                    <span class="section-label" data-en="THE LOCATION" data-es="LA UBICACIÓN">LA UBICACIÓN</span>
+                    <h2 class="spot-heading" data-en="Our Spot." data-es="Nuestro Spot.">Nuestro Spot.</h2>
+                    <p class="spot-sub"
+                        data-en="Nestled right on Lobitos beach, where the waves are perfect for every surfer's level."
+                        data-es="Ubicados directamente en la playa de Lobitos, donde las olas son perfectas para cada nivel de surfista.">
+                        Ubicados directamente en la playa de Lobitos, donde las olas son perfectas para cada nivel de
+                        surfista.
+                    </p>
+
+                    <div class="spot-details">
+                        <div class="spot-detail">
+                            <span class="spot-detail-label" data-en="ADDRESS" data-es="UBICACIÓN">UBICACIÓN</span>
+                            <span class="spot-detail-value">Lobitos Beach, Peru</span>
+                        </div>
+                        <div class="spot-detail-divider"></div>
+                        <div class="spot-detail">
+                            <span class="spot-detail-label" data-en="HOURS" data-es="HORARIO">HORARIO</span>
+                            <span class="spot-detail-value">6:30 AM – 6:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Google Maps -->
+                <div class="spot-right">
+                    <div class="map-wrapper">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.7680200603054!2d-81.2878429!3d-4.454196499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90365ba094d8f551%3A0x66f44c20a982248f!2sJhonny&#39;s%20Surf%20School!5e0!3m2!1ses!2spe!4v1774028223325!5m2!1ses!2spe"
+                            class="spot-map" title="Lobitos Beach — Jhonny Surf School" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <div class="map-caption">
+                            <span class="map-pin">📍</span>
+                            <span>Lobitos, Talara — Piura, Perú</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- ================================
@@ -613,15 +854,41 @@
         <div class="booking-content">
             <div class="booking-steps" id="booking-steps">
 
-                <!-- STEP 1 -->
+                <!-- STEP 1: SERVICE SELECTION -->
                 <div class="booking-step active" data-step="1">
+                    <h2 class="step-title" style="margin-bottom: 2rem;">
+                        <span class="title-line" data-es="Selecciona un Servicio" data-en="Choose a service">Selecciona un Servicio</span>
+                    </h2>
+                    <div class="service-cards-grid">
+                        <div class="service-card" data-service="classes">
+                            <svg class="w-16 h-16 text-white/70 mx-auto mb-4 transition-colors duration-300 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="width: 4rem; height: 4rem; opacity: 0.7; margin: 0 auto 1rem auto;">
+                                <path d="M2 12c.5-1 2-2 4-2 2 0 3.5 1 4 2 .5 1 2 2 4 2 2 0 3.5-1 4-2" />
+                                <path d="M2 17c.5-1 2-2 4-2 2 0 3.5 1 4 2 .5 1 2 2 4 2 2 0 3.5-1 4-2" />
+                            </svg>
+                            <h3 class="service-title" data-en="Surf Classes" data-es="Clases de Surf">Clases de Surf</h3>
+                            <p class="service-desc" data-en="Learn with us" data-es="Aprende con nosotros">Aprende con nosotros</p>
+                        </div>
+                        <div class="service-card" data-service="rentals">
+                            <svg class="w-16 h-16 text-white/70 mx-auto mb-4 transition-colors duration-300 group-hover:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="width: 4rem; height: 4rem; opacity: 0.7; margin: 0 auto 1rem auto;">
+                                <path d="M12 2c2 0 4 2.5 4 6v8c0 3.5-2 4-4 4s-4-.5-4-4V8c0-3.5 2-6 4-6z"/>
+                                <path d="M12 2v20"/>
+                            </svg>
+                            <h3 class="service-title" data-en="Equipment Rentals" data-es="Alquiler de Equipos">Alquiler de Equipos</h3>
+                            <p class="service-desc" data-en="Surf on your own" data-es="Surfea por tu cuenta">Surfea por tu cuenta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2A: CLASSES -->
+                <div class="booking-step" data-step="2a">
+                    <button class="modal-back-btn" data-target="1">← Volver</button>
                     <h2 class="step-title">
                         <span class="title-line">Elige tu paquete</span>
                         <span class="title-line title-alt">Choose your package</span>
                     </h2>
                     <div class="experience-strips">
                         <div class="experience-strip" data-package="1 Clase" data-price="100">
-                            <div class="strip-bg"><img src="images/wave-punta.png" alt="1 Clase"></div>
+                            <div class="strip-bg"><img src="images/wave-punta.jpeg" alt="1 Clase"></div>
                             <div class="strip-content">
                                 <span class="strip-number">01</span>
                                 <h3 class="strip-title">1 Clase</h3>
@@ -630,7 +897,7 @@
                             </div>
                         </div>
                         <div class="experience-strip" data-package="3 Clases" data-price="270">
-                            <div class="strip-bg"><img src="images/piscinas.png" alt="3 Clases"></div>
+                            <div class="strip-bg"><img src="images/piscinas.jpeg" alt="3 Clases"></div>
                             <div class="strip-content">
                                 <span class="strip-number">02</span>
                                 <h3 class="strip-title">3 Clases</h3>
@@ -639,7 +906,7 @@
                             </div>
                         </div>
                         <div class="experience-strip" data-package="5 Clases" data-price="400">
-                            <div class="strip-bg"><img src="images/wave-barrel.png" alt="5 Clases"></div>
+                            <div class="strip-bg"><img src="images/wave-barrel.jpeg" alt="5 Clases"></div>
                             <div class="strip-content">
                                 <span class="strip-number">03</span>
                                 <h3 class="strip-title">5 Clases</h3>
@@ -650,12 +917,65 @@
                     </div>
                 </div>
 
-                <!-- STEP 2 -->
-                <div class="booking-step step2-flex" data-step="2">
-
-                    <!-- Fixed Header -->
+                <!-- STEP 2B: RENTALS -->
+                <div class="booking-step step2-flex" data-step="2b">
                     <div class="step2-header">
-                        <h2 class="step-title">
+                        <button class="modal-back-btn" data-target="1">← Volver</button>
+                        <h2 class="step-title" style="margin-top: 1rem;">
+                            <span class="title-line">Catálogo de Alquiler</span>
+                            <span class="title-line title-alt">Rental Catalog</span>
+                        </h2>
+                    </div>
+                    <div class="step2-body">
+                        <div class="rental-list">
+                            <div class="rental-item" data-id="Tabla de Surf" data-price="30">
+                                <span class="rental-name">Tabla de Surf<br><small class="text-sm opacity-50">S/. 30 / día</small></span>
+                                <div class="rental-controls">
+                                    <button type="button" class="qty-btn" data-action="decrease">—</button>
+                                    <span class="qty-display">0</span>
+                                    <button type="button" class="qty-btn" data-action="increase">+</button>
+                                </div>
+                            </div>
+                            <div class="rental-item" data-id="Wetsuit" data-price="30">
+                                <span class="rental-name">Wetsuit<br><small class="text-sm opacity-50">S/. 30 / día</small></span>
+                                <div class="rental-controls">
+                                    <button type="button" class="qty-btn" data-action="decrease">—</button>
+                                    <span class="qty-display">0</span>
+                                    <button type="button" class="qty-btn" data-action="increase">+</button>
+                                </div>
+                            </div>
+                            <div class="rental-item" data-id="Bodyboard + Aletas" data-price="40">
+                                <span class="rental-name">Bodyboard + Aletas<br><small class="text-sm opacity-50">S/. 40 / día</small></span>
+                                <div class="rental-controls">
+                                    <button type="button" class="qty-btn" data-action="decrease">—</button>
+                                    <span class="qty-display">0</span>
+                                    <button type="button" class="qty-btn" data-action="increase">+</button>
+                                </div>
+                            </div>
+                            <div class="rental-item" data-id="Pack Completo" data-price="50">
+                                <span class="rental-name">Pack Completo (Tabla + Traje)<br><small class="text-sm opacity-50">S/. 50 / día</small></span>
+                                <div class="rental-controls">
+                                    <button type="button" class="qty-btn" data-action="decrease">—</button>
+                                    <span class="qty-display">0</span>
+                                    <button type="button" class="qty-btn" data-action="increase">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step2-footer">
+                        <div class="rental-summary-box">
+                            <span>Total Estimado:</span>
+                            <span id="rental-total-price">S/. 0</span>
+                        </div>
+                        <button class="step-nav-btn" id="to-step-3-rentals" disabled>Continuar</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: CALENDAR (previously Step 2) -->
+                <div class="booking-step step2-flex" data-step="3">
+                    <div class="step2-header">
+                        <button class="modal-back-btn" data-target="dynamic">← Volver</button>
+                        <h2 class="step-title" style="margin-top: 1rem;">
                             <span class="title-line">Selecciona fecha</span>
                         </h2>
                     </div>
@@ -687,14 +1007,14 @@
                                 <button class="time-slot" data-time="16:30">04:30 PM</button>
                             </div>
                         </div>
-                        <button class="step-nav-btn" id="to-step-3" disabled>Continuar</button>
+                        <button class="step-nav-btn" id="to-step-4" disabled>Continuar</button>
                     </div>
-
                 </div>
 
-                <!-- STEP 3 -->
-                <div class="booking-step" data-step="3">
-                    <h2 class="step-title">
+                <!-- STEP 4: DETAILS (previously Step 3) -->
+                <div class="booking-step" data-step="4">
+                    <button class="modal-back-btn" data-target="3">← Volver</button>
+                    <h2 class="step-title" style="margin-top: 1rem;">
                         <span class="title-line">Tus datos</span>
                     </h2>
                     <form class="booking-form" id="booking-form">

@@ -503,12 +503,16 @@ async function updateSurfConditions() {
 const BookingFlow = {
     overlay: null,
     steps: null,
-    currentStep: 1,
+    currentStepId: '1',
 
-    data: {
-        level: null, price: 0,
-        date: null, time: null,
-        name: '', phone: ''
+    state: {
+        type: null,
+        package: null, 
+        price: 0, 
+        rentals: {}, 
+        date: null, 
+        time: null, 
+        name: ''
     },
 
     calendar: {
@@ -526,7 +530,7 @@ const BookingFlow = {
     },
 
     bindEvents() {
-        // Open: circular CTA + nav RESERVAR button
+        // Open
         ['cta-circle-btn', 'nav-reservar-btn'].forEach(id => {
             document.getElementById(id)?.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -534,8 +538,6 @@ const BookingFlow = {
                 this.open();
             });
         });
-
-        // Open: retreats CTA
         document.getElementById('retreats-cta-btn')?.addEventListener('click', () => this.open());
 
         // Close
@@ -543,42 +545,109 @@ const BookingFlow = {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.overlay.classList.contains('active')) this.close();
         });
-
-        // Backdrop click to close
         document.querySelector('.booking-backdrop')?.addEventListener('click', () => this.close());
 
-        // Experience Strips
-        document.querySelectorAll('.experience-strip').forEach(strip => {
-            strip.addEventListener('click', () => {
-                this.selectExperience(strip.dataset.package, parseInt(strip.dataset.price));
+        // Back Buttons
+        document.querySelectorAll('.modal-back-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                let target = btn.dataset.target;
+                if (target === 'dynamic') {
+                    // Logic to return to step 2A or 2B
+                    target = this.state.type === 'classes' ? '2a' : '2b';
+                }
+                this.goToStep(target);
             });
         });
 
-        // Calendar
+        // Step 1: Service Cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const service = card.dataset.service;
+                this.state.type = service;
+                this.goToStep(service === 'classes' ? '2a' : '2b');
+            });
+        });
+
+        // Step 2A: Experience Strips (Classes)
+        document.querySelectorAll('.experience-strip').forEach(strip => {
+            strip.addEventListener('click', () => {
+                this.state.package = strip.dataset.package;
+                this.state.price = parseInt(strip.dataset.price);
+                setTimeout(() => this.goToStep('3'), 350);
+            });
+        });
+
+        // Step 2B: Rentals Catalog Logic
+        document.querySelectorAll('.rental-item').forEach(item => {
+            const id = item.dataset.id;
+            const price = parseInt(item.dataset.price);
+            const minusBtn = item.querySelector('.qty-btn[data-action="decrease"]');
+            const plusBtn = item.querySelector('.qty-btn[data-action="increase"]');
+            const qtyDisplay = item.querySelector('.qty-display');
+
+            const updateItem = (newQty) => {
+                if (newQty < 0) newQty = 0;
+                if (newQty > 5) newQty = 5;
+                if (newQty === 0) {
+                    delete this.state.rentals[id];
+                } else {
+                    this.state.rentals[id] = { qty: newQty, price: price };
+                }
+                qtyDisplay.textContent = newQty;
+                this.updateRentalTotal();
+            };
+
+            minusBtn.addEventListener('click', () => {
+                const current = this.state.rentals[id]?.qty || 0;
+                updateItem(current - 1);
+            });
+            plusBtn.addEventListener('click', () => {
+                const current = this.state.rentals[id]?.qty || 0;
+                updateItem(current + 1);
+            });
+        });
+
+        document.getElementById('to-step-3-rentals')?.addEventListener('click', () => {
+            if (Object.keys(this.state.rentals).length > 0) {
+                this.goToStep('3');
+            }
+        });
+
+        // Step 3: Calendar
         document.getElementById('cal-prev')?.addEventListener('click', () => this.prevMonth());
         document.getElementById('cal-next')?.addEventListener('click', () => this.nextMonth());
 
-        // Time Slots
+        // Step 3: Time Slots
         document.querySelectorAll('.time-slot').forEach(slot => {
             slot.addEventListener('click', () => {
                 document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
                 slot.classList.add('selected');
-                this.data.time = slot.dataset.time;
+                this.state.time = slot.dataset.time;
                 this.updateContinueButton();
             });
         });
 
-        // Step 2 → 3
-        document.getElementById('to-step-3')?.addEventListener('click', () => {
-            if (this.data.date && this.data.time) this.goToStep(3);
+        // Step 3 → 4
+        document.getElementById('to-step-4')?.addEventListener('click', () => {
+            if (this.state.date && this.state.time) this.goToStep('4');
         });
 
         // Form Submit
         document.getElementById('booking-form')?.addEventListener('submit', (e) => {
             this.submitBooking(e);
         });
+    },
 
-
+    updateRentalTotal() {
+        let total = 0;
+        for (const [key, item] of Object.entries(this.state.rentals)) {
+            total += item.qty * item.price;
+        }
+        this.state.price = total;
+        document.getElementById('rental-total-price').textContent = `S/. ${total}`;
+        
+        const btn = document.getElementById('to-step-3-rentals');
+        if (btn) btn.disabled = total === 0;
     },
 
     open() {
@@ -597,37 +666,43 @@ const BookingFlow = {
     },
 
     resetFlow() {
-        this.currentStep = 1;
-        this.data = { package: null, price: 0, date: null, time: null, name: '', phone: '' };
+        this.currentStepId = '1';
+        this.state = { type: null, package: null, price: 0, rentals: {}, date: null, time: null, name: '' };
+        
         document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
         document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-        const btn = document.getElementById('to-step-3');
+        const btn = document.getElementById('to-step-4');
         if (btn) btn.disabled = true;
+        
+        document.querySelectorAll('.qty-display').forEach(el => el.textContent = '0');
+        this.updateRentalTotal();
+
         document.getElementById('booking-form')?.reset();
-        this.goToStep(1);
+        this.goToStep('1');
     },
 
-    goToStep(step) {
-        this.currentStep = step;
-        document.getElementById('current-step').textContent = step;
-        document.getElementById('progress-fill').style.width = `${(step / 3) * 100}%`;
+    goToStep(stepId) {
+        this.currentStepId = stepId;
+
+        let progMap = { '1': 25, '2a': 50, '2b': 50, '3': 75, '4': 100 };
+        let progressNum = { '1': 1, '2a': 2, '2b': 2, '3': 3, '4': 4 };
+        
+        const currentCount = document.getElementById('current-step');
+        if (currentCount) currentCount.textContent = progressNum[stepId] || 1;
+        
+        const progressFill = document.getElementById('progress-fill');
+        if (progressFill) progressFill.style.width = `${progMap[stepId] || 25}%`;
 
         this.steps.forEach(s => {
-            const n = parseInt(s.dataset.step);
             s.classList.remove('active', 'exit');
-            if (n === step) s.classList.add('active');
-            else if (n < step) s.classList.add('exit');
+            if (s.dataset.step === stepId) {
+                s.classList.add('active');
+            } else {
+                s.classList.add('exit');
+            }
         });
 
-        if (step === 3) this.updateSummary();
-    },
-
-    selectExperience(pkg, price) {
-        this.data.package = pkg;
-        this.data.price = price;
-        const priceEl = document.getElementById('confirm-price');
-        if (priceEl) priceEl.textContent = `(S/. ${price})`;
-        setTimeout(() => this.goToStep(2), 350);
+        if (stepId === '4') this.updateSummary();
     },
 
     generateCalendar() {
@@ -668,7 +743,7 @@ const BookingFlow = {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
                     btn.classList.add('selected');
-                    this.data.date = `${day}/${mo + 1}/${yr}`;
+                    this.state.date = `${day}/${mo + 1}/${yr}`;
                     this.updateContinueButton();
                 });
             }
@@ -689,14 +764,21 @@ const BookingFlow = {
     },
 
     updateContinueButton() {
-        const btn = document.getElementById('to-step-3');
-        if (btn) btn.disabled = !(this.data.date && this.data.time);
+        const btn = document.getElementById('to-step-4');
+        if (btn) btn.disabled = !(this.state.date && this.state.time);
     },
 
     updateSummary() {
-        document.getElementById('summary-level').textContent = this.data.package || '—';
-        document.getElementById('summary-date').textContent = this.data.date || '—';
-        document.getElementById('summary-time').textContent = this.data.time || '—';
+        let pkgLabel = '';
+        if (this.state.type === 'classes') {
+            pkgLabel = this.state.package || '—';
+        } else {
+            pkgLabel = Object.entries(this.state.rentals).map(([name, item]) => `${item.qty}x ${name}`).join(', ');
+        }
+        
+        document.getElementById('summary-level').textContent = pkgLabel;
+        document.getElementById('summary-date').textContent = this.state.date || '—';
+        document.getElementById('summary-time').textContent = this.state.time || '—';
     },
 
     submitBooking(e) {
@@ -708,7 +790,7 @@ const BookingFlow = {
         if (!name) {
             if (nameInput) {
                 nameInput.style.borderColor = '#ff4444';
-                nameInput.placeholder = 'Por favor, ingresa tu nombre para continuar.';
+                nameInput.placeholder = 'Por favor, ingresa tu nombre.';
             }
             alert("Por favor, ingresa tu nombre para continuar.");
             return;
@@ -716,11 +798,21 @@ const BookingFlow = {
             if (nameInput) nameInput.style.borderColor = '';
         }
 
-        this.data.name = name;
+        this.state.name = name;
 
         /* ── WhatsApp redirect ── */
         const waNumber = '51978693003';
-        const message = `¡Hola Jhonny! Quiero separar mis clases de surf. Aquí te dejo los detalles de mi reserva:\n\n- *Nombre:* ${this.data.name}\n- *Paquete:* ${this.data.package}\n- *Fecha:* ${this.data.date}\n- *Hora:* ${this.data.time}\n- *Total:* S/. ${this.data.price}\n\n¡Me confirmas la disponibilidad!`;
+        let message = '';
+
+        if (this.state.type === 'classes') {
+            message = `Hola Jhonny! Vengo de la web. Quiero reservar el paquete de ${this.state.package} para el día ${this.state.date} a las ${this.state.time}. Mi nombre es ${this.state.name}.`;
+        } else {
+            const rentalList = Object.entries(this.state.rentals)
+                .map(([name, item]) => `- ${item.qty}x ${name}`)
+                .join('\n');
+            message = `Hola Jhonny! Vengo de la web. Quiero alquilar equipo para el día ${this.state.date} a las ${this.state.time}. Necesito:\n${rentalList}\nMi nombre es ${this.state.name}.`;
+        }
+
         const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
         window.open(waUrl, '_blank');
 
