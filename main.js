@@ -531,7 +531,7 @@ const BookingFlow = {
 
     bindEvents() {
         // Open
-        ['cta-circle-btn', 'nav-reservar-btn'].forEach(id => {
+        ['cta-circle-btn', 'nav-reservar-btn', 'mobile-floating-btn'].forEach(id => {
             document.getElementById(id)?.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
